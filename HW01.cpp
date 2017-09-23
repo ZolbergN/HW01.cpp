@@ -55,7 +55,7 @@ T stack<T>::pop() {
 
 template<typename T>
 size_t stack<T>::count() const {
-	return array_size_;
+	return count_;
 }
 
 template<typename T>
