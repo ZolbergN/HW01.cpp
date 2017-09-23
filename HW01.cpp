@@ -27,7 +27,8 @@ stack<T>::stack() {
 }
 
 template <typename T>
-stack<T>::stack(int maxEl) : array_size_(maxEl) {
+stack<T>::stack(int maxEl) {
+	array_size_ = maxEl;
 	array_ = new T[maxEl];
 	count_ = 0;
 }
