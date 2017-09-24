@@ -13,7 +13,7 @@ private:
 	size_t count_;
 public:
 	stack();
-	stack(int);
+	stack(size_t);
 	size_t count() const;
 	void push(T const &);
 	T pop();
@@ -24,11 +24,11 @@ template <typename T>
 stack<T>::stack() {
 	array_size_ = 2;
 	array_ = new T[array_size_];
+	count_ = 0;
 }
 
 template <typename T>
-stack<T>::stack(int maxEl) {
-	array_size_ = maxEl;
+stack<T>::stack(size_t maxEl) : array_size_(maxEl) {
 	array_ = new T[maxEl];
 	count_ = 0;
 }
@@ -66,30 +66,28 @@ void stack<T>::printStack() {
 
 int main() {
 	stack<int> st(2);
-	int j = 0;
-	int je;
 
-	while (j++ < 4) {
-		cin >> je;
-		st.push(je);
-	}
+	st.push(13);
+	st.push(15);
+	st.push(1);
+	st.push(3);
 
-cout << "Ellements of stack" << endl;
-cout << endl;
+	cout << "Ellements of stack" << endl;
+	cout << endl;
 
-st.printStack();
+	st.printStack();
 
-for (int i = 4; i > 1; i--) {
 	st.pop();
-}
+	st.pop();
 
-cout << "Posle Ydaleniya" << endl;
-cout << endl;
+	cout << endl;
+	cout << "After removing" << endl;
+	cout << endl;
 
-st.printStack();
+	st.printStack();
 
-cout << endl;
+	cout << endl;
 
-system("pause");
-return 0;
+	system("pause");
+	return 0;
 }
