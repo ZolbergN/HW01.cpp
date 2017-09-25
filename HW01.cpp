@@ -67,8 +67,8 @@ void stack<T>::printStack() {
 }
 
 int main() {
-	stack<int> st{ 2 };
 	try {
+		stack<int> st{ 2 };
 		st.push(13);
 		st.push(15);
 		st.push(1);
