@@ -21,8 +21,8 @@ public:
 };
 
 template <typename T>
-stack<T>::stack() {
-	array_size_ = 2;
+stack<T>::stack() : array_size_(2) { //Инициализируюв списке инициализаторов мы 
+									//переменную инициализируем только один раз
 	array_ = new T[array_size_];
 	count_ = 0;
 }
@@ -30,17 +30,17 @@ stack<T>::stack() {
 template <typename T>
 stack<T>::stack(size_t maxEl) : array_size_(maxEl) {
 	array_ = new T[maxEl];
-	count_ = 0;
+	count_ = 0; //Инициализируя в блоке, мы, можно сказать, повторно инициализируем переменную
 }
 
 template <typename T>
 void stack<T>::push(const T &value) {
 	if (count_ == array_size_) {
 		T* array_size2_ = new T[2 * array_size_];
-		for (int i = 0; i != array_size_; ++i) {
+		for (size_t i = 0; i != array_size_; ++i) {
 			array_size2_[i] = array_[i];
 		}
-		delete[]array_;
+		delete[] array_;
 		array_ = array_size2_;
 	}
 	array_[count_++] = value;
@@ -48,7 +48,9 @@ void stack<T>::push(const T &value) {
 
 template<typename T>
 T stack<T>::pop() {
-	assert(count_ > 0);
+	if (count_ == 0) {
+		throw domain_error{ "*** ERROR ***" };
+	}
 	array_[--count_];
 	return array_[count_];
 }
@@ -65,28 +67,36 @@ void stack<T>::printStack() {
 }
 
 int main() {
-	stack<int> st(2);
+	stack<int> st{ 2 };
+	try {
+		st.push(13);
+		st.push(15);
+		st.push(1);
+		st.push(3);
 
-	st.push(13);
-	st.push(15);
-	st.push(1);
-	st.push(3);
+		cout << "Ellements of stack" << endl;
+		cout << endl;
 
-	cout << "Ellements of stack" << endl;
-	cout << endl;
+		st.printStack();
 
-	st.printStack();
+		st.pop();
+		st.pop();
+		st.pop();
+		st.pop();
+		st.pop();
 
-	st.pop();
-	st.pop();
+		cout << endl;
+		cout << "After removing" << endl;
+		cout << endl;
 
-	cout << endl;
-	cout << "After removing" << endl;
-	cout << endl;
+		st.printStack();
 
-	st.printStack();
+		cout << endl;
+	}
 
-	cout << endl;
+	catch (exception& exc) {
+		cout << exc.what() << endl;
+	}
 
 	system("pause");
 	return 0;
